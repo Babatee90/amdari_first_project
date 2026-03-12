@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Amdari_first_project CI/CD
+name: amdari_first_project CI/CD
 
 on:
   push:
@@ -45,11 +45,11 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/Amdari_first_project:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/amdari_first_project:latest .
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/Amdari_first_project:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/amdari_first_project:latest
 
   deploy:
     needs: build-and-push
@@ -63,7 +63,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/Amdari_first_project:latest
-            docker stop Amdari_first_project || true
-            docker rm Amdari_first_project || true
-            docker run -d -p 5000:5000 --name Amdari_first_project ${{ secrets.DOCKER_USERNAME }}/techflow-project:latest
+            docker pull ${{ secrets.DOCKER_USERNAME }}/amdari_first_project:latest
+            docker stop amdari_first_project || true
+            docker rm amdari_first_project || true
+            docker run -d -p 5000:5000 --name amdari_first_project ${{ secrets.DOCKER_USERNAME }}/amdari_first_project:latest
